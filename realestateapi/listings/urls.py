@@ -4,6 +4,6 @@ from django.urls import path
 
 urlpatterns =[
     path('', ListingsListView.as_view()),
-    path('<int:id>', ListingView.as_view())
+    path('<int:id>/', ListingView.as_view())
 ]
 

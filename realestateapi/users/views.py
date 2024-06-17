@@ -22,6 +22,7 @@ import datetime
 
 class RegisterAPIView(APIView):
     def post(self, request):
+        print(request.data)
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -60,8 +61,8 @@ class LoginAPIView(APIView):
         payload = {
             "id": user.id,
             "email": user.email,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            "iat": datetime.datetime.utcnow()
+            "exp": datetime.datetime.now() + datetime.timedelta(minutes=60),
+            "iat": datetime.datetime.now()
         }
 
         token = jwt.encode(payload, 'secret', algorithm='HS256')

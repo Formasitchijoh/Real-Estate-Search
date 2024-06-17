@@ -23,9 +23,14 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']  # You can customize this if necessary
+    REQUIRED_FIELDS = ['name']  # You can customize this if necessary
 
     objects = CustomUserManager()
+    
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = self.email
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.email
