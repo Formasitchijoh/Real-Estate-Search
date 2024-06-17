@@ -27,10 +27,10 @@ class Client(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
 
-class BookMark(models.Model):
-    id = models.AutoField(primary_key=True)
-    listing = models.ManyToManyField(Listing)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+# class BookMark(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     listing = models.ManyToManyField(Listing)
+#     client = models.ForeignKey(Client, on_delete=models.CASCADE)
 
 class Inquiry(models.Model):
     id = models.AutoField(primary_key=True)

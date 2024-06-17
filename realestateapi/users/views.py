@@ -11,22 +11,21 @@ import datetime
 
 # Create your views here.
 
-class registerAPIViews(APIView):
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)   #if anything not valid, raise exception
-        serializer.save()
-        return Response(serializer.data)
-
 from rest_framework.authtoken.models import Token
 
-class registerAPIView(APIView):
+from rest_framework.response import Response
+from rest_framework.exceptions import AuthenticationFailed
+from .serializers import UserSerializer
+from .models import User
+import jwt
+import datetime
+
+class RegisterAPIView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
 
-        # Generate and return the JWT token
         payload = {
             "id": user.id,
             "email": user.email,
@@ -38,7 +37,7 @@ class registerAPIView(APIView):
         response = Response()
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
-            'jwt token': token
+            'jwt': token
         }
 
         return response
