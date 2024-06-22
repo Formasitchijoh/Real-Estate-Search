@@ -502,7 +502,7 @@ def similarity_check( *args, **kwargs):
             dataset.append(row)
 
     # Example usage
-    search_query = 'house in limbe'
+    search_query = 'cheap and affordable houses in Buea'
     top_listings, top_scores = find_best_matches(search_query, dataset, top_n=3)
     result_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/search_result.json')
     # Save the top matches to a JSON file
