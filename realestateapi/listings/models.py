@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 from django.db import models
 from django.contrib.auth.hashers import make_password
@@ -7,17 +6,17 @@ from django.contrib.auth.hashers import make_password
 # Create your models here.
 
 class Listing(models.Model):
-    title = models.CharField(max_length=1000, name='title')
-    image = models.CharField(max_length=500, name="image")
-    link = models.CharField(max_length=200)
-    listing_type = models.CharField(max_length=50)
-    bedroom = models.CharField(max_length=200)
-    bathrooms = models.CharField(max_length=200)
-    location = models.CharField(max_length=50)
-    town = models.CharField(max_length=50)
-    price = models.CharField(max_length=200)
-    pricepermonth = models.CharField(max_length=50)
-    views = models.CharField(max_length=200)
+    title = models.CharField(max_length=255)
+    image = models.URLField()
+    link = models.URLField()
+    listing_type = models.CharField(max_length=100)
+    bedroom = models.FloatField()
+    bathrooms = models.FloatField()
+    location = models.CharField(max_length=255)
+    town = models.CharField(max_length=255)
+    price = models.FloatField()
+    pricepermonth = models.CharField(max_length=500)
+    views = models.IntegerField()
     reactions = models.IntegerField()
 
     def __str__(self):
@@ -30,12 +29,12 @@ class ProcessedListings(models.Model):
     image = models.URLField()
     link = models.URLField()
     listing_type = models.CharField(max_length=100)
-    bedroom = models.IntegerField()
-    bathrooms = models.IntegerField()
+    bedroom = models.FloatField()
+    bathrooms = models.FloatField()
     location = models.CharField(max_length=255)
     town = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    pricepermonth = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.FloatField()
+    pricepermonth = models.CharField(max_length=500)
     views = models.IntegerField()
     reactions = models.IntegerField()
 

@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',  # <-- Here
     'backend.apps.BackendConfig',
-    'listings.apps.ListingsConfig',
     'users',
     'corsheaders',
     'bookmarks',
+    'listings',
     'blog',
 
 

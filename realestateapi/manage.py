@@ -17,6 +17,10 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+    #load processed data
+    #from django.core.management import call_command
+    #call_command('load_processed_data')
+
 
 if __name__ == '__main__':
     main()
