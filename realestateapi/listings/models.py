@@ -21,18 +21,23 @@ class Listing(models.Model):
     reactions = models.IntegerField()
 
     def __str__(self):
-        return str({
-        'id': self.pk,
-        'title': self.title,
-        'image': self.image,
-        'link': self.link,
-        'listing_type': self.listing_type,
-        'bedroom': self.bedroom,
-        'bathrooms': self.bathrooms,
-        'location': self.location,
-        'town': self.town,
-        'price': self.price,
-        'pricepermonth': self.pricepermonth,
-        'views': self.views,
-        'reactions': self.reactions
-    })
+        return self.title
+
+class ProcessedListings(models.Model):
+    query = models.CharField(max_length=255, default="")
+    Unnamed = models.IntegerField()
+    title = models.CharField(max_length=255)
+    image = models.URLField()
+    link = models.URLField()
+    listing_type = models.CharField(max_length=100)
+    bedroom = models.IntegerField()
+    bathrooms = models.IntegerField()
+    location = models.CharField(max_length=255)
+    town = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    pricepermonth = models.DecimalField(max_digits=10, decimal_places=2)
+    views = models.IntegerField()
+    reactions = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.title} - {self.location}"

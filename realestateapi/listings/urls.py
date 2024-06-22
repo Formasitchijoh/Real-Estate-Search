@@ -1,9 +1,12 @@
-from django.urls import path
-from .views import ListingsListView, ListingView
-from django.urls import path
+from django.urls import path, include
+from .views import ListingsListView,ProcessedListingView
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'',  ListingsListView)
+router.register(r'processed',  ProcessedListingView)
 
 urlpatterns =[
-    path('', ListingsListView.as_view()),
-    path('<int:id>/', ListingView.as_view())
+    path('', include(router.urls)),
 ]
 

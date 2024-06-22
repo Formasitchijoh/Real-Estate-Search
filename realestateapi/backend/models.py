@@ -1,9 +1,7 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User, Group, Permission,AbstractUser
-
 # Create your models here.
-
 class Listing(models.Model):
     title = models.CharField(max_length=1000, name='title')
     image = models.CharField(max_length=500)
@@ -18,6 +16,7 @@ class Listing(models.Model):
     views = models.CharField(max_length=200)
     reactions = models.IntegerField()
 
+
     def __str__(self):
         return self.title
 
@@ -27,10 +26,9 @@ class Client(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
 
-# class BookMark(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     listing = models.ManyToManyField(Listing)
-#     client = models.ForeignKey(Client, on_delete=models.CASCADE)
+class BookMark(models.Model):
+     listing = models.ManyToManyField(Listing, related_name='bookmark')
+     client = models.ForeignKey(Client, on_delete=models.CASCADE)
 
 class Inquiry(models.Model):
     id = models.AutoField(primary_key=True)

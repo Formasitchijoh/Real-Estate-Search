@@ -7,7 +7,7 @@ urlpatterns = [
     path('api/backend/',include('backend.urls')),
     path('api/listings/', include('listings.urls')),
     path('api/', include('users.urls')),
-    path('api/bookmarks/', include('bookmarks.urls'))
-
+    path('api/bookmarks/', include('bookmarks.urls')),
+    path('api/blog/', include('blog.urls'))
 
 ]
