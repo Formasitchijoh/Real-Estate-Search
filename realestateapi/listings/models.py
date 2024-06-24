@@ -40,3 +40,14 @@ class ProcessedListings(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.location}"
+    
+
+class Query(models.Model):
+    query = models.CharField(max_length=50, default='')
+    listing = models.ManyToManyField(Listing)
+
+    class Meta:
+        db_table = 'querys'
+
+    def __str__(self):
+        return self.query

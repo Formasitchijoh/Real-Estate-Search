@@ -16,9 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         #extract password
         password = validated_data.pop('password', None)
+        user = User.objects.create_user(**validated_data)
         instance = self.Meta.model(**validated_data) #doesnt include password
 
         if password is not None:
             instance.set_password(password) #hashes password
+        
         instance.save()
-        return instance
+        return {instance, user}

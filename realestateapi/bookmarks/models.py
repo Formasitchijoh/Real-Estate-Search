@@ -7,7 +7,6 @@ from users.models import User
 class BookMark(models.Model):
     listing = models.ManyToManyField(Listing, related_name='bookmarkedListing')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
+    
     def __str__(self):
         return self.listing
