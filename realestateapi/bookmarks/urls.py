@@ -1,11 +1,13 @@
+from django.urls import path,include
+from .views import BookMarksListView
 from django.urls import path
-from .views import BookMarksListView,BookMarkView, HelloView
-from django.urls import path
+from rest_framework import routers
 
+router = routers.DefaultRouter()
+router.register(r'', BookMarksListView)
 urlpatterns =[
-    path('', BookMarksListView.as_view()),
-    path('<int:id>', BookMarkView.as_view()),
-    path('hello/', HelloView.as_view(), name='hello'),
+    path('', include(router.urls)),
+
 
 ]
 

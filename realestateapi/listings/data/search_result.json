@@ -1,0 +1,88 @@
+{
+    "Listings": [
+        {
+            "id": "160",
+            "query": "guest house in  Douala Bonamousadi",
+            "listing": "36",
+            "title": "4 bedroom bedrooms duplex for sale  |  Bonamousadi, Douala, Cameroon",
+            "link": "https://digitalrenter.com/en/duplex/Bonamousadi/Douala/duplex-for-sale-3929?locale=en",
+            "listing_type": "Guest house",
+            "bedroom": "4.0",
+            "bathrooms": "3.0",
+            "location": "Bonamousadi",
+            "town": " Douala",
+            "price": "65000000.0",
+            "pricepermonth": "per month",
+            "views": "65",
+            "reactions": "12",
+            "images": [
+                "https://digitalrenter.s3.amazonaws.com/listings/6ea554091f2a4e67a5f1dc37c06d9f86.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/c40804e1974863edf23aeeda02940f4a.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/33be8ecd5f55ff77774604788be93ce5.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/542bcab83fb532055886553130723be9.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/016d23ab9ef94210f9f99b9001945ad4.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/e197117a47376f12adb8309c7b9300e8.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/c931b83a2d915a55dc33541090b71ba8.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/c36747a7a297e70d0b3519b896301b48.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/903966fcfe100b156e9d9f00016bb583.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/4b656f564badedabdc7f1e8a3614ca62.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/16be65232b60df2997e4fb9b1df86124.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/16b6fc03fda135f7a433161d6a736cbe.jpg"
+            ]
+        },
+        {
+            "id": "147",
+            "query": "4 bedroom house in Bonamousadi Douala",
+            "listing": "36",
+            "title": "4 bedroom bedrooms duplex for sale  |  Bonamousadi, Douala, Cameroon",
+            "link": "https://digitalrenter.com/en/duplex/Bonamousadi/Douala/duplex-for-sale-3929?locale=en",
+            "listing_type": "Guest house",
+            "bedroom": "4.0",
+            "bathrooms": "3.0",
+            "location": "Bonamousadi",
+            "town": " Douala",
+            "price": "65000000.0",
+            "pricepermonth": "per month",
+            "views": "65",
+            "reactions": "12",
+            "images": [
+                "https://digitalrenter.s3.amazonaws.com/listings/6ea554091f2a4e67a5f1dc37c06d9f86.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/c40804e1974863edf23aeeda02940f4a.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/33be8ecd5f55ff77774604788be93ce5.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/542bcab83fb532055886553130723be9.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/016d23ab9ef94210f9f99b9001945ad4.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/e197117a47376f12adb8309c7b9300e8.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/c931b83a2d915a55dc33541090b71ba8.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/c36747a7a297e70d0b3519b896301b48.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/903966fcfe100b156e9d9f00016bb583.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/4b656f564badedabdc7f1e8a3614ca62.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/16be65232b60df2997e4fb9b1df86124.jpg",
+                "https://digitalrenter.s3.amazonaws.com/listings/16b6fc03fda135f7a433161d6a736cbe.jpg"
+            ]
+        },
+        {
+            "id": "16",
+            "query": "4 bedroom house in Baoba - Bonamousadi Douala",
+            "listing": "38",
+            "title": "4 bedroom bedrooms duplex for sale  |  Baoba - Bonamousadi, Douala, Cameroon",
+            "link": "https://digitalrenter.com/en/duplex/Baoba%20-%20Bonamousadi/Douala/duplex-for-sale-3926?locale=en",
+            "listing_type": "Guest house",
+            "bedroom": "4.0",
+            "bathrooms": "5.0",
+            "location": "Baoba - Bonamousadi",
+            "town": " Douala",
+            "price": "70.0",
+            "pricepermonth": "per month",
+            "views": "70",
+            "reactions": "0",
+            "images": [
+                "https://digitalrenter.com/front/img/house-search.png"
+            ]
+        }
+    ],
+    "Scores": [
+        0.7745966692414834,
+        0.7745966692414834,
+        0.7071067811865477
+    ]
+}

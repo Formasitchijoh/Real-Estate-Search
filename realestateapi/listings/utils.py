@@ -477,10 +477,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 import json
 
 def similarity_check(query, top_n=5):
-        # Increase the field size limit
+    # Increase the field size limit
     csv.field_size_limit(1000000000)
 
-    # Read the dataset from the CSV 
+    # Read the dataset from the CSV
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/processed_data.csv')
 
     dataset = []
@@ -517,25 +517,31 @@ def similarity_check(query, top_n=5):
     top_listings = []
     top_scores = []
     for q in top_queries:
-        top_listings.extend(query_to_listings[q])
-        top_scores.extend([scores[list(queries).index(q)]] * len(query_to_listings[q]))
-
+        for listing in query_to_listings[q]:
+            listing_id = listing['listing']
+            print(listing['query'], listing_id)
+            images = Image.objects.filter(listing_id=listing_id)
+            listing_with_images = listing.copy()
+            listing_with_images['images'] = [image.image for image in images]
+            top_listings.append(listing_with_images)
+            top_scores.append(scores[list(queries).index(q)])
     return top_listings, top_scores
 
-
-
-    # Example usage
-    #search_query = 'cheap and affordable houses in Buea'
-    #top_listings, top_scores = find_best_matches(search_query, dataset, top_n=3)
-    #result_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/search_result.json')
-    # Save the top matches to a JSON file
-    #with open(result_file_path, "w") as f:
-    #    json.dump({"Listings": top_listings, "Scores": top_scores}, f, indent=4)
-
-
-def similarity_checks(*args, **kwargs):
+def similarity_checkas(*args, **kwargs):
 
     def find_best_matches(query, dataset, top_n=5):
+        # Increase the field size limit
+        csv.field_size_limit(1000000000)
+
+        # Read the dataset from the CSV
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/processed_data.csv')
+
+        dataset = []
+        with open(file_path, 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                dataset.append(row)
+
         # Create a CountVectorizer to convert the queries to vectors
         vectorizer = CountVectorizer()
 
@@ -564,8 +570,14 @@ def similarity_checks(*args, **kwargs):
         top_listings = []
         top_scores = []
         for q in top_queries:
-            top_listings.extend(query_to_listings[q])
-            top_scores.extend([scores[list(queries).index(q)]] * len(query_to_listings[q]))
+            for listing in query_to_listings[q]:
+                listing_id = listing['listing']
+                print(listing['query'], listing_id)
+                images = Image.objects.filter(listing_id=listing_id)
+                listing_with_images = listing.copy()
+                listing_with_images['images'] = [image.image for image in images]
+                top_listings.append(listing_with_images)
+                top_scores.append(scores[list(queries).index(q)])
 
         return top_listings, top_scores
 
@@ -582,7 +594,7 @@ def similarity_checks(*args, **kwargs):
             dataset.append(row)
 
     # Example usage
-    search_query = 'cheap house in buea'
+    search_query = 'house in douala'
     top_listings, top_scores = find_best_matches(search_query, dataset, top_n=3)
     result_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/search_result.json')
     # Save the top matches to a JSON file

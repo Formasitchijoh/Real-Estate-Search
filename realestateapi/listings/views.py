@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from .models import Listing, ProcessedListings
+from .models import Listing, ProcessedListings, Image
 from .serializers import ListingSerializer, ProcessedListingSerializer
 from rest_framework.response import Response
 from rest_framework.response import Response
@@ -12,7 +12,7 @@ from accounts.permissions import IsClient, IsAgent
         
 class ListingsListView(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated,)             # <-- And here
-    permission_classes = [IsClient]
+    #permission_classes = [IsClient]
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
     http_method_names=['get','post','option','put']
@@ -43,3 +43,9 @@ class SearchView(viewsets.ViewSet):
             return Response(search_results)
         return Response([])
 
+class ImageView(viewsets.ViewSet):
+    def list(self, request):
+        images = Image.objects.get(listing_id = request.data.id)
+        if images:
+            return Response(images)
+        return Response(images)

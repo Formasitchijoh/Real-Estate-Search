@@ -25,7 +25,6 @@ class ProcessedListings(models.Model):
     query = models.CharField(max_length=255, default="")
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    image = models.URLField()
     link = models.URLField()
     listing_type = models.CharField(max_length=100)
     bedroom = models.FloatField()

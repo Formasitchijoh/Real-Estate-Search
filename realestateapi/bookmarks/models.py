@@ -5,7 +5,7 @@ from accounts.models import User
 
 
 class BookMark(models.Model):
-    listing = models.ManyToManyField(ProcessedListings, related_name='bookmarkedListing')
+    listing = models.ManyToManyField(ProcessedListings)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
