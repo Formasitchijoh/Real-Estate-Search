@@ -1,22 +1,25 @@
 import os
 import csv
 from django.http import HttpResponse
-from listings.models import ProcessedListings, Listing
+from listings.models import ProcessedListings, Listing,Image,Query
 from django.conf import settings
 import pandas as pd
 import numpy as np
 import json
 import csv
+import ast
+
 def load_processed_data(**kwargs):
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/processed_data.csv')
     with open(file_path, 'r') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
+            listing_id = int(row['listing'])
+            listing = Listing.objects.get(pk=listing_id)
             ProcessedListings.objects.create(
                 query=row['query'],
-                Unnamed=row['Unnamed'],
+                listing=listing,
                 title=row['title'],
-                image=row['image'],
                 link=row['link'],
                 listing_type=row['listing_type'],
                 bedroom=row['bedroom'],
@@ -29,26 +32,53 @@ def load_processed_data(**kwargs):
                 reactions=row['reactions']
             )
 
+def load_cleaned_data(file_path,**kwargs):
+    with open(file_path, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            listing = Listing.objects.create(
+                title=row['title'],
+                link=row['link'],
+                listing_type=row['listing_type'],
+                bedroom=row['bedroom'],
+                bathrooms=row['bathrooms'],
+                location=row['location'],
+                town=row['town'],
+                price=row['price'],
+                pricepermonth=row['pricepermonth'],
+                views=row['views'],
+                reactions=row['reactions']
+            )
+
+            # Convert the 'images' field from string to list
+            image_urls = ast.literal_eval(row['images'])
+
+            # Create Image instances for the Listing
+            for image_url in image_urls:
+                Image.objects.create(
+                    image=image_url,
+                    listing=listing
+                )
+
 def export_to_csv(**kwargs):
     listings = Listing.objects.all()
-
     # Construct the file path
     app_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_file_path = os.path.join(app_dir, 'data/listings.csv')
+    csv_file_path = os.path.join(app_dir, 'data/updated_listings.csv')
 
     with open(csv_file_path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
 
-        writer.writerow(['', 'title', 'image', 'link', 'listing_type', 'bedroom', 'bathrooms', 'location', 'town', 'price', 'pricepermonth', 'views', 'reactions'])
+        writer.writerow(['id', 'title', 'link', 'listing_type', 'bedroom', 'bathrooms', 'location', 'town', 'price', 'pricepermonth', 'views', 'reactions'])
 
         for listing in listings:
-            writer.writerow([listing.id, listing.title, listing.image, listing.link, listing.listing_type, listing.bedroom, listing.bathrooms, listing.location, listing.town, listing.price, listing.pricepermonth, listing.views, listing.reactions])
+            writer.writerow([listing.id, listing.title, listing.link, listing.listing_type, listing.bedroom, listing.bathrooms, listing.location, listing.town, listing.price, listing.pricepermonth, listing.views, listing.reactions])
 
     return HttpResponse("CSV file exported successfully.")
 
 def clean_data():
     input_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/listings.csv')
-    output_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/updated_listings.csv')
+    output_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/cleaned_data.csv')
 
     data = pd.read_csv(input_file_path)
     #Get statistical information of the numeric data in out dataset ie np.number
@@ -73,13 +103,7 @@ def clean_data():
     ###########################
   
     data['bedroom'] = data['bedroom'].fillna(1.0)
-    data = data.astype({
-        'price': 'float64',
-        'bedroom': 'float64',
-        'bathrooms': 'float64',
-        'reactions': 'int64',
-        'views': 'int64'
-    })
+
     data.loc[(data['bedroom'] == 0.0) & (data['price'] <= 65000.0), 'bedroom'] = 1.0
 
     data['bathrooms'] = np.where(data['bathrooms'] > 50, 1.0, data['bathrooms'])
@@ -103,8 +127,19 @@ def clean_data():
     imputer = SimpleImputer(strategy='mean')
     data['price'] = imputer.fit_transform(data[['price']]).astype('float64')
     data['pricepermonth'] = data['pricepermonth'].fillna('per month').astype(str)
-    
+    data = data.astype({
+        'price': 'float64',
+        'bedroom': 'float64',
+        'bathrooms': 'float64',
+        'reactions': 'int64',
+        'views': 'int64'
+    })
+    print('here')
     data.to_csv(output_file_path, index=False)
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/cleaned_data.csv')
+    if file_path:
+        load_cleaned_data(file_path)
+
     print(f"Updated data has been written to '{output_file_path}'.")
 
 def match_listings_to_query():
@@ -187,6 +222,9 @@ def generate_queries():
     with open(file_path, 'w') as f:
         for query in set(all_matched_queries):
             f.write(query + '\n')
+            Query.objects.create(
+                query=query
+            )
 
 def match_query_to_listings():
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/output.json')
@@ -212,18 +250,18 @@ def match_query_to_listings():
         query_listings[query] = matching_listings
 
     # Save the query-listings pairs to a CSV file
+    print('saving')
     with open(processed_file_path, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(['id', 'query', 'Unnamed', 'title', 'image', 'link', 'listing_type', 'bedroom', 'bathrooms', 'location', 'town', 'price', 'pricepermonth', 'views', 'reactions'])
+        writer.writerow(['id', 'query', 'listing', 'title','link', 'listing_type', 'bedroom', 'bathrooms', 'location', 'town', 'price', 'pricepermonth', 'views', 'reactions'])
         id = 1
         for query, listings in query_listings.items():
             for listing in listings:
                 row = [id]
                 row.extend([
                     query,
-                    listing['Unnamed: 0'],
+                    listing['id'],
                     listing['title'],
-                    listing['image'],
                     listing['link'],
                     listing['listing_type'],
                     listing['bedroom'],
@@ -428,24 +466,9 @@ def Scrapper():
                 data.append(item)
         current_page += 1
 
-    new_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/new_listings.csv')
+    new_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/listings.csv')
     df = pd.DataFrame(data)
     df.to_csv(new_file_path)
-    for row in data:
-            Listing.objects.create(
-                title=row['title'],
-                image=row['image'],
-                link=row['link'],
-                listing_type=row['listing_type'],
-                bedroom=row['bedroom'],
-                bathrooms=row['bathrooms'],
-                location=row['location'],
-                town=row['town'],
-                price=row['price'],
-                pricepermonth=row['pricepermonth'],
-                views=row['views'],
-                reactions=row['reactions']
-            )
 
 
 import csv

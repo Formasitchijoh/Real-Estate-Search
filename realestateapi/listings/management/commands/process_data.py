@@ -1,11 +1,16 @@
 # listings/management/commands/clean_data.py
 from django.core.management.base import BaseCommand
-from listings.utils import match_listings_to_query, match_query_to_listings, generate_queries,load_processed_data
+from listings.utils import export_to_csv, match_listings_to_query, match_query_to_listings, generate_queries,load_processed_data
 
 class Command(BaseCommand):
     help = 'process cleaned data from csv file'
 
     def handle(self, *args, **options):
+        try:
+            export_to_csv()
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f"ERROR in  exporting the file from the database"))
+            return
         try:
             match_listings_to_query()
         except Exception as e:

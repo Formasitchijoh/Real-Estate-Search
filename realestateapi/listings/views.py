@@ -6,11 +6,13 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated  # <-- Here
 from rest_framework import viewsets
 from .utils import similarity_check
+from accounts.permissions import IsClient, IsAgent
 
 # Create your views here.
         
 class ListingsListView(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated,)             # <-- And here
+    permission_classes = [IsClient]
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
     http_method_names=['get','post','option','put']

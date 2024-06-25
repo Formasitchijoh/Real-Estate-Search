@@ -1,7 +1,7 @@
 
 from rest_framework.generics import ListAPIView, RetrieveAPIView,CreateAPIView
 from .models import BookMark
-from .serializers import BookMarkSerializer,BookMarkDetailSerializer,CreateBookmarkSerializer
+from .serializers import BookMarkSerializer,BookMarkDetailSerializer
 from .models import BookMark
 from rest_framework.views import APIView
 from rest_framework.response import Response

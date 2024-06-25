@@ -7,9 +7,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-              Scrapper()
-        except Exception as e :
-            self.stdout.write(self.style.ERROR(f"ERROR in scrapping data from source:{e}"))
-            return
+             Scrapper()
+        except Exception as e:
+             self.stdout.write(self.style.ERROR(f"ERROR in loading scrapped data {e}"))
+             return
     
         self.stdout.write(self.style.SUCCESS('scrape command executed successfully'))

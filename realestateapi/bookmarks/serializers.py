@@ -13,4 +13,3 @@ class BookMarkDetailSerializer(serializers.ModelSerializer):
         model = BookMark
         fields = ('id','listing','user')
         lookup_field = 'id'
-

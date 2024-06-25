@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'bookmarks',
     'listings',
+    'accounts',
 
 
 
@@ -92,7 +93,7 @@ DATABASES = {
         'PORT': '3307'
     }
 }
-AUTH_USER_MODEL='users.User'
+AUTH_USER_MODEL='accounts.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
