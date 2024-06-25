@@ -3,7 +3,6 @@ from .models import BookMark
 from listings.serializers import ListingSerializer
 from users.models import User
 class BookMarkSerializer(serializers.ModelSerializer):
-    listing = ListingSerializer(many=True, read_only=True)
     class Meta:
         model = BookMark
         fields = ('id','listing','user')

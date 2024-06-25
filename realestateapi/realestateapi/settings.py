@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',  # <-- Here
-    'backend.apps.BackendConfig',
     'users',
     'corsheaders',
     'bookmarks',

@@ -27,7 +27,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['name']  # You can customize this if necessary
 
     objects = CustomUserManager()
-    
+    class Meta:
+        db_table = 'users'
+        
     def save(self, *args, **kwargs):
         if not self.username:
             self.username = self.email

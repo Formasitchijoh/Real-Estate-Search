@@ -11,7 +11,7 @@ class Recommendation(models.Model):
     interest = models.ForeignKey(ProcessedListings, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'recommendation'
+        db_table = 'recommendations'
     
     def __str__(self):
         return self.user

@@ -519,7 +519,6 @@ def similarity_check(query, top_n=5):
     for q in top_queries:
         for listing in query_to_listings[q]:
             listing_id = listing['listing']
-            print(listing['query'], listing_id)
             images = Image.objects.filter(listing_id=listing_id)
             listing_with_images = listing.copy()
             listing_with_images['images'] = [image.image for image in images]

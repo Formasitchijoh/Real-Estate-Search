@@ -17,8 +17,12 @@ class Listing(models.Model):
     views = models.IntegerField()
     reactions = models.IntegerField()
 
+    class Meta:
+        db_table = 'listings'
     def __str__(self):
         return self.title
+    
+
 
 # a table formed from the relationship of listings and query but it is handled and processed differently
 class ProcessedListings(models.Model):
@@ -36,8 +40,11 @@ class ProcessedListings(models.Model):
     views = models.IntegerField()
     reactions = models.IntegerField()
 
+    class Meta:
+        db_table = 'processed_listing'
+
     def __str__(self):
-        return self.id
+        return self.title
 
 class Image(models.Model):
     image=models.URLField() 
