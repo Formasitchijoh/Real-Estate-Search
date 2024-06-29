@@ -4,4 +4,4 @@ from .models import Recommendation
 class RecommendationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommendation
-        fields = ('user','location','interest')
+        fields = ('user','last_search','location','interest')

@@ -526,6 +526,16 @@ def similarity_check(query, top_n=5):
             top_scores.append(scores[list(queries).index(q)])
     return top_listings, top_scores
 
+def Images(listing_id,*args, **kwagrs):
+        listing_images = []
+        print(type(listing_id))
+        images = Image.objects.filter(listing_id=listing_id)
+        print('in the building', images)
+        listing_images = [image.image for image in images]
+        print('listing', listing_images)
+        return listing_images
+
+
 def similarity_checkas(*args, **kwargs):
 
     def find_best_matches(query, dataset, top_n=5):

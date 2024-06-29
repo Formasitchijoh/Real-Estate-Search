@@ -33,7 +33,7 @@ class UserLoginView(ObtainAuthToken):
             if created:
                 token.delete()  # Delete the token if it was already created
                 token = Token.objects.create(user=user)
-            return Response({'token': token.key, 'username': user.username, 'role': user.role})
+            return Response({'id':user.id, 'token': token.key, 'username': user.username, 'role': user.role})
         else:
             return Response({'message': 'Invalid username or password'}, status=status.HTTP_401_UNAUTHORIZED)
 
