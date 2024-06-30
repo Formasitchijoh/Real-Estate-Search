@@ -13,4 +13,4 @@ class BookMark(models.Model):
         db_table = 'bookmarks'
     
     def __str__(self):
-        return self.listing
+        return self.user.username

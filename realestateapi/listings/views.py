@@ -1,21 +1,32 @@
 from rest_framework.response import Response
 from .models import Listing, ProcessedListings, Image
-from .serializers import ListingSerializer, ProcessedListingSerializer, ListingImageSerializer
+from .serializers import ListingSerializer, ProcessedListingSerializer,ListingWithImagesSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated  # <-- Here
 from rest_framework import viewsets
 from .utils import similarity_check,Images
 from accounts.permissions import IsClient, IsAgent
 from rest_framework.views import APIView
-
+from rest_framework.pagination import PageNumberPagination
 # Create your views here.
-        
+
+
+class ListingPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
 class ListingsListView(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated,)             # <-- And here
     #permission_classes = [IsClient]
-    queryset = Listing.objects.all()
-    serializer_class = ListingSerializer
-    http_method_names=['get','post','option','put']
+    queryset = Listing.objects.all().prefetch_related('listing_image')
+    serializer_class = ListingWithImagesSerializer
+    pagination_class = ListingPagination
+    http_method_names = ['get', 'post', 'option', 'put']
+
+    def get_queryset(self):
+        # Optionally, you can add filters or annotations here
+        return super().get_queryset()
 
 
 class ProcessedListingView(viewsets.ModelViewSet):
@@ -67,7 +78,6 @@ class ImageViews(viewsets.ViewSet):
 
 class ImageView(viewsets.ViewSet):
     def list(self, request):
-        print('I am inohhh')
         listing_id = int(self.request.query_params.get('id', ''))
         if listing_id:
             print('I am inohhh good for you', int(listing_id))

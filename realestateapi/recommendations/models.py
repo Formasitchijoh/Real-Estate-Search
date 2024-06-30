@@ -16,4 +16,4 @@ class Recommendation(models.Model):
         db_table = 'recommendations'
     
     def __str__(self):
-        return self.location
+        return f"{self.last_search}"

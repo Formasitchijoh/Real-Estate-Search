@@ -482,7 +482,7 @@ def similarity_check(query, top_n=5):
 
     # Read the dataset from the CSV
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/processed_data.csv')
-
+    print('I am in the similarity check function and i want to check the query', query)
     dataset = []
     with open(file_path, 'r') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -512,7 +512,7 @@ def similarity_check(query, top_n=5):
     # Find the indices of the top-N queries with the highest similarity scores
     top_indices = scores.argsort()[-top_n:][::-1]
     top_queries = [list(queries)[i] for i in top_indices]
-
+    print('cosine similarity', top_queries)
     # Get the top-N matching listings and their corresponding scores
     top_listings = []
     top_scores = []
