@@ -1,5 +1,5 @@
 from django.db import models
-from listings.models import ProcessedListings, Listing
+from listings.models import Listing
 from accounts.models import User
 from recommendations.models import Recommendation
 # Create your models here.
@@ -7,7 +7,7 @@ from recommendations.models import Recommendation
 
 class BookMark(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    listing = models.ManyToManyField(ProcessedListings)
+    listing = models.ManyToManyField(Listing)
 
     class Meta:
         db_table = 'bookmarks'

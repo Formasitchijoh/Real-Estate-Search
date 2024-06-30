@@ -34,18 +34,14 @@ class ProcessedListingView(viewsets.ModelViewSet):
     serializer_class = ProcessedListingSerializer
     http_method_names = ['get', 'post','option','put']
 
-
 class SearchView(viewsets.ViewSet):
+    #pagination_class = ListingPagination
     def list(self, request):
         print('I am inohhh')
         search_query = self.request.query_params.get('query', '')
         if search_query:
             print('I am inohhh good for you',search_query)
-            top_listings, top_scores = similarity_check(search_query)
-            #search_results = [
-              #  {'id': listing.id, 'title': listing.title, 'description': listing.description, 'score': score}
-               # for listing, score in zip(top_listings, top_scores)
-            #]  
+            top_listings, top_scores = similarity_check(search_query) 
             search_results = {
             "Listings":top_listings,
             "Scores":top_scores
@@ -54,7 +50,29 @@ class SearchView(viewsets.ViewSet):
 
             return Response(search_results)
         return Response([])
+        
+class SearchViews(viewsets.ViewSet):
+    pagination_class = ListingPagination
 
+    def list(self, request):
+        print('\n\npage\n\n')
+        search_query = self.request.query_params.get('query', '')
+        print('\n\npage\n\n',search_query)
+
+        if search_query:
+            top_listings, top_scores = similarity_check(search_query)
+            search_results = {
+                "Listings": top_listings,
+                "Scores": top_scores
+            }
+            #page = self.pagination_class.paginate_queryset(search_results["Listings"], request)
+           # if page is not None:
+               # return self.pagination_class.get_paginated_response(page)
+        return Response([])
+    
+
+
+    
 class ImageViews(viewsets.ViewSet):
     def list(self, request):
         print('I am inohhh')

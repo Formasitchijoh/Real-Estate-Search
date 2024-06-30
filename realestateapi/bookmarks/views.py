@@ -9,7 +9,7 @@ from rest_framework.permissions import IsAuthenticated  # <-- Here
 from rest_framework import viewsets
 from accounts.models import User
 from rest_framework import status
-from listings.serializers import ProcessedListingSerializer
+from listings.serializers import ProcessedListingSerializer,ListingWithImagesSerializer
 from listings.models import Image
 
 # Create your views here.
@@ -27,11 +27,11 @@ class BookMarksListView(viewsets.ModelViewSet):
         for bookmark in bookmarks:
             listings.extend(bookmark.listing.all())
             #print('\nin\n',bookmark.listing.all())
-        serializer = ProcessedListingSerializer(listings, many=True)
+        serializer = ListingWithImagesSerializer(listings, many=True)
         bookMarkedListing = []
         for listing in serializer.data:
-            print(listing['listing'])
-            listing_id = listing['listing']
+            print(listing['id'])
+            listing_id = listing['id']
             images = Image.objects.filter(listing_id=listing_id)
             listing_with_images = listing.copy()
             listing_with_images['images'] = [image.image for image in images]

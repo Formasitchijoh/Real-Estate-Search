@@ -6,12 +6,21 @@ from rest_framework.response import Response
 from .serializers import RecommendationSerializer
 from listings.utils import similarity_check,Images
 # Create your views here.
-        
+from rest_framework.pagination import PageNumberPagination
+# Create your views here.
+
+
+class RecommendationPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
 class RecommendationListView(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated,)             # <-- And here
     #permission_classes = [IsClient]
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
+    pagination_class = RecommendationPagination
     http_method_names=['get','post','option','put']
 
 class UserRecommendationListView(viewsets.ViewSet):
