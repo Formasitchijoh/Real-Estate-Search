@@ -5,6 +5,7 @@ from .models import Recommendation
 from rest_framework.response import Response
 from .serializers import RecommendationSerializer
 from listings.utils import similarity_check,Images
+from rest_framework import status
 # Create your views here.
 from rest_framework.pagination import PageNumberPagination
 # Create your views here.
@@ -35,6 +36,6 @@ class UserRecommendationListView(viewsets.ViewSet):
             "Listings":top_listings,
             "Scores":top_scores
             }        
-            return Response(search_results)
+            return Response(search_results, status=status.HTTP_200_OK)
         return Response([])
     
