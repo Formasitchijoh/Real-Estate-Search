@@ -8,11 +8,12 @@ from .utils import similarity_check,Images
 from accounts.permissions import IsClient, IsAgent
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import status
 # Create your views here.
 
 
 class ListingPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 12
     page_size_query_param = 'page_size'
     max_page_size = 100
 
@@ -50,48 +51,30 @@ class SearchView(viewsets.ViewSet):
 
             return Response(search_results)
         return Response([])
-        
-class SearchViews(viewsets.ViewSet):
-    pagination_class = ListingPagination
 
-    def list(self, request):
-        print('\n\npage\n\n')
-        search_query = self.request.query_params.get('query', '')
-        print('\n\npage\n\n',search_query)
+from django.db.models import Q
 
-        if search_query:
-            top_listings, top_scores = similarity_check(search_query)
+class FullSearchListingView(viewsets.ViewSet):
+    serializer_class = ListingSerializer
+    def list(self,request):
+        query = self.request.query_params.get('query', '')
+        print(query)
+        listings = Listing.objects.filter(
+            Q(price__icontains=query) |
+            Q(bathrooms__icontains=query) |
+            Q(bedroom__icontains=query) |
+            Q(listing_type__icontains=query) |
+            Q(town__icontains=query) |
+            Q(location__icontains=query) |
+            Q(title__icontains=query)
+        )
+        print('\n\n', listings)
+        serializer = ListingSerializer(listings, many=True)
+        if serializer:
             search_results = {
-                "Listings": top_listings,
-                "Scores": top_scores
-            }
-            #page = self.pagination_class.paginate_queryset(search_results["Listings"], request)
-           # if page is not None:
-               # return self.pagination_class.get_paginated_response(page)
-        return Response([])
-    
-
-
-    
-class ImageViews(viewsets.ViewSet):
-    def list(self, request):
-        print('I am inohhh')
-        listing_images = []
-        listing_id = int(self.request.query_params.get('id', ''))
-        print('I am inohhh',listing_id)
-        try:
-            images = Image.objects.filter(listing_id=listing_id)
-            print(images)
-            for image in images:
-                serializer = ListingSerializer(image)
-                if serializer.is_valid():
-                   listing_images.append(image)
-                   print('\nlisting image\n', listing_images)
-            return listing_images
-        except:
-            print('')
-
-        return Response(listing_images)
+            "Listings":listings,
+            } 
+            return Response(serializer.data, status=status.HTTP_200_OK)  
 
 
 class ImageView(viewsets.ViewSet):
@@ -103,3 +86,92 @@ class ImageView(viewsets.ViewSet):
             print('I am inohhh good for you', listing_images)
             return Response(listing_images)
         return Response([])
+
+
+from .documents import ListingDocument
+from .serializers import ListingSerializer
+
+from .documents import ListingDocument
+from .serializers import ListingSerializer
+from elasticsearch_dsl import Q
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django_elasticsearch_dsl.search import Search
+from elasticsearch_dsl import Search, Q
+
+class ListingsSearch(APIView):
+    serializer_class = ListingSerializer
+    document_class = ListingDocument
+    serializer_class = ListingSerializer
+
+    def get(self, request):
+        # Get the search parameters from the request
+        query = request.query_params.get('query', None)
+        bedroom = request.query_params.get('bedroom', None)
+        bathrooms = request.query_params.get('bathrooms', None)
+        min_price = request.query_params.get('min_price', None)
+        max_price = request.query_params.get('max_price', None)
+        listing_type = request.query_params.get('listing_type', None)
+
+        # Create a Search object
+        s = Search(index=ListingDocument._index._name)
+
+        # Add the match query for the title
+        s = s.query("match", title={"query": query, "fuzziness": "auto"})
+
+        # Add the filter clauses
+        if bedroom:
+            s = s.filter("term", bedroom=bedroom)
+        if bathrooms:
+            s = s.filter("term", bathrooms=bathrooms)
+        if min_price and max_price:
+            s = s.filter("range", price={"gte": min_price, "lte": max_price})
+        if listing_type:
+            s = s.filter("term", listing_type=listing_type)
+
+        # Execute the search and get the results
+        response = s.execute()
+
+        # Serialize the results
+        serializer = self.serializer_class(response.hits, many=True)
+
+        return Response(serializer.data)
+
+from django_elasticsearch_dsl_drf.constants import (
+    LOOKUP_FILTER_RANGE,
+    LOOKUP_QUERY_GTE,
+    LOOKUP_QUERY_IN,
+    SUGGESTER_COMPLETION,
+)
+from django_elasticsearch_dsl_drf.filter_backends import (
+    FilteringFilterBackend,
+    SuggesterFilterBackend,
+    CompoundSearchFilterBackend
+)
+from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+
+
+from .documents import ListingDocument
+from .serializers import ListingSerializer
+
+class ListingDocumentViewSet(DocumentViewSet):
+    document =ListingDocument
+    serializer_class = ListingSerializer
+
+    filter_backends = (
+        FilteringFilterBackend,
+        SuggesterFilterBackend,
+        CompoundSearchFilterBackend
+    )
+
+    search_fields = ("title",)
+
+    filter_fields = {
+        "id": {"field": "id", "lookups": [LOOKUP_QUERY_IN]},
+        "price": {"field": "price", "lookups": [LOOKUP_QUERY_GTE, LOOKUP_FILTER_RANGE]},
+    }
+
+    suggester_fields = {
+        "town_suggest": {"field": "town.suggest", "suggesters": [SUGGESTER_COMPLETION]},
+        #"price_suggest": {"field": "price.suggest", "suggesters": [SUGGESTER_COMPLETION]},
+    }

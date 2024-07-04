@@ -16,6 +16,8 @@ environ.Env.read_env(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
+STRIPE_SECRET_KEY = 'sk_test_51PYKmCRtxNTl8HYi2jyIKgbb6faoF8QIvcu0s8QJIh1ua4ntdjxh7KquP3qXpuLSroOnPKTCCnGa5VlxaYQG9qk800fbAhjpR6'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51PYKmCRtxNTl8HYipyAjn2FBzD11BCFWDlMba0ntvb3w7E4YFlTUzSkdfcqlO8iwZreYtB0j0FLEfcgPpgo6Y6lS00Qf5lBz2W'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
@@ -36,12 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',  # <-- Here
+    "django_elasticsearch_dsl",
+    "django_elasticsearch_dsl_drf",
     'users',
     'corsheaders',
     'bookmarks',
     'listings',
     'accounts',
-    'recommendations'
+    'recommendations',
+    'payment'
 
 
 
@@ -142,4 +147,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',  # <-- And here
     ],
+}
+
+ELASTICSEARCH_DSL = {
+    "default": {
+        "hosts": "https://localhost:9200",
+        "http_auth": ("elastic", "iNfA_B-xxfmFT9RMlMXo"),
+        "ca_certs": "/Users/echelon-zeus/elasticsearch-8.14.1/config/certs/http_ca.crt",
+    }
 }
