@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ListingsListView,ProcessedListingView,SearchView, ImageView, FullSearchListingView, ListingsSearch, ListingDocumentViewSet,ContentBasedRecommendationListView
+from .views import ListingsListView,ProcessedListingView,SearchView, ImageView, FullSearchListingView, ListingsSearch, ListingDocumentViewSet,ContentBasedRecommendationListView, get_distinct_values, get_locations_by_town
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -15,5 +15,8 @@ urlpatterns =[
     path('', include(router.urls)),
     path("listing_search/", ListingsSearch.as_view()),
     path("content/", ContentBasedRecommendationListView.as_view()),
+    path('distinct-values/', get_distinct_values, name='distinct-values'),
+    path('locations/', get_locations_by_town, name='locations-by-town'),
+
 ]
 

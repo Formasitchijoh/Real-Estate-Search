@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from rest_framework.response import Response
 from .models import Listing, ProcessedListings, Image
 from .serializers import ListingSerializer, ProcessedListingSerializer,ListingWithImagesSerializer
@@ -9,7 +10,7 @@ from accounts.permissions import IsClient, IsAgent
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from recommendations.models import Recommendation
-
+from .views import Images
 from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
 )
@@ -139,6 +140,10 @@ class ListingsSearch(APIView):
 
         # Serialize the results
         serializer = self.serializer_class(response.hits, many=True)
+        for listing in serializer.data:
+            listing_images = Images(listing['id'])
+            listing['listing_image'] = listing_images
+            print(listing)
 
         return Response(serializer.data)
 
@@ -265,52 +270,29 @@ class ContentBasedRecommendationListView(APIView):
 
                 serializer = ListingWithImagesSerializer(serializer_data, many=True)
                 return Response(serializer.data)
-    
 
-class ContentBasedRecommendationListViewssss(APIView):
-    def get(self, request):
-        # Get the search parameters from the request
-        #user_id = self.request.query_params.get('user_id', '')
-        query = request.query_params.get('query', None)
-        bedroom = request.query_params.get('bedroom', None)
-        bathrooms = request.query_params.get('bathrooms', None)
-        min_price = request.query_params.get('min_price', None)
-        max_price = request.query_params.get('max_price', None)
-        listing_type = request.query_params.get('listing_type', None)
+def get_distinct_values(request):
+    distinct_values = {
+        'listing_types': list(Listing.objects.values_list('listing_type', flat=True).distinct()),
+        'bedrooms': list(Listing.objects.values_list('bedroom', flat=True).distinct()),
+        'bathrooms': list(Listing.objects.values_list('bathrooms', flat=True).distinct()),
+        'locations': list(Listing.objects.values_list('location', flat=True).distinct()),
+        'towns': list(Listing.objects.values_list('town', flat=True).distinct()),
+        'prices': list(Listing.objects.values_list('price', flat=True).distinct()),
+        'pricepermonth': list(Listing.objects.values_list('pricepermonth', flat=True).distinct()),
+        'views': list(Listing.objects.values_list('views', flat=True).distinct()),
+        'reactions': list(Listing.objects.values_list('reactions', flat=True).distinct()),
+    }
+    return JsonResponse(distinct_values)
 
-        # Create a Search object
-        s = Search(index=ListingDocument._index._name)
-
-        # Add the match query for the title
-        s = s.query("match", title={"query": query, "fuzziness": "auto"})
-
-        # Add the filter clauses
-        if bedroom:
-            s = s.filter("term", bedroom=bedroom)
-        if bathrooms:
-            s = s.filter("term", bathrooms=bathrooms)
-        if min_price and max_price:
-            s = s.filter("range", price={"gte": min_price, "lte": max_price})
-        if listing_type:
-            s = s.filter("term", listing_type=listing_type)
-
-        # Execute the search and get the results
-        response = s.execute()
-
-        listing_ids = [hit.id for hit in response.hits]
-        image_qs = Image.objects.filter(listing_id__in=listing_ids)
-        image_dict = {}
-        for image in image_qs:
-            if image.listing_id in image_dict:
-                image_dict[image.listing_id].append(image)
-            else:
-                image_dict[image.listing_id] = [image]
-
-        serializer_data = []
-        for hit in response.hits:
-            listing_data = hit.to_dict()
-            listing_data['listing_image'] = image_dict.get(hit.id, [])
-            serializer_data.append(listing_data)
-
-        serializer = ListingWithImagesSerializer(serializer_data, many=True)
-        return Response(serializer.data)
+def get_locations_by_town(request):
+    town = request.GET.get('town')
+    if town:
+        town = town.strip()  # Normalize the input by stripping spaces
+        print(f"Normalized town: '{town}'")  # Debugging line
+        distinct_locations = Listing.objects.filter(town__iexact=town).values_list('location', flat=True).distinct()
+        print(f"Distinct locations: {list(distinct_locations)}")  # Debugging line
+        return JsonResponse({'locations': list(distinct_locations)})
+    else:
+        print("No town parameter provided")  # Debugging line
+        return JsonResponse({'error': 'Town parameter is required'}, status=400)

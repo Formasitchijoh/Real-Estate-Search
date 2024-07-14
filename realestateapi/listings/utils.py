@@ -8,6 +8,8 @@ import numpy as np
 import json
 import csv
 import ast
+import fuzzywuzzy
+from fuzzywuzzy import process
 
 def load_processed_data(**kwargs):
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/processed_data.csv')
@@ -121,6 +123,28 @@ def clean_data():
     # Update the title
     data['title'] = data.apply(lambda row: f"{str(int(row['bedroom']))} bedroom{' ' + ' '.join(row['title'].split('|')[0].split(' ')[1:]) if row['title'].split('|')[0].split(' ')[1:] else ''} | {row['title'].split('|')[1]}" if '|' in row['title'] else row['title'], axis=1)
     data['views'] = data['views'].fillna(0).astype('int64')
+
+    def replace_matches_in_column(df, column, string_to_match, min_ratio = 47):
+        # get a list of unique strings
+        strings = df[column].unique()
+        
+        # get the top 10 closest matches to our input string
+        matches = fuzzywuzzy.process.extract(string_to_match, strings, 
+                                            limit=10, scorer=fuzzywuzzy.fuzz.token_sort_ratio)
+
+        # only get matches with a ratio > 90
+        close_matches = [matches[0] for matches in matches if matches[1] >= min_ratio]
+
+        # get the rows of all the close matches in our dataframe
+        rows_with_matches = df[column].isin(close_matches)
+
+        # replace all rows with close matches with the input matches 
+        df.loc[rows_with_matches, column] = string_to_match
+        
+        # let us know the function's done
+        print("All done!")
+
+    replace_matches_in_column(df=data, column='listing_type', string_to_match="Guest House")
 
     #filling out the missing price by using the mean of the prices
     from sklearn.impute import SimpleImputer

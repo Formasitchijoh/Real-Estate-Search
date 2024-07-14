@@ -9,7 +9,8 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
-
+from recommendations.models import Recommendation
+from recommendations.serializers import RecommendationSerializer
 
 class UserRegistrationView(APIView):
     def post(self, request):
@@ -30,9 +31,46 @@ class UserLoginView(ObtainAuthToken):
         if user is not None:
             login(request, user)
             token, created = Token.objects.get_or_create(user=user)
+            if not created:
+                token.delete()  # Delete the token if it was already created
+                token = Token.objects.create(user=user)
+            
+            user_recommendations = Recommendation.objects.filter(user=user.pk).first()
+            if user_recommendations:
+                recommendation = RecommendationSerializer(user_recommendations).data
+                return Response({
+                    'id': user.id,
+                    'token': token.key,
+                    'username': user.username,
+                    'role': user.role,
+                    'recommendation': recommendation
+                })
+            
+            return Response({
+                'id': user.id,
+                'token': token.key,
+                'username': user.username,
+                'role': user.role
+            })
+        else:
+            return Response({'message': 'Invalid username or password'}, status=status.HTTP_401_UNAUTHORIZED)
+
+class UserLoginViews(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            token, created = Token.objects.get_or_create(user=user)
             if created:
                 token.delete()  # Delete the token if it was already created
                 token = Token.objects.create(user=user)
+            user_recommendations = Recommendation.objects.filter(user=user.pk).first()
+            if user_recommendations:
+                recommendation = RecommendationSerializer(user_recommendations)
+                return Response({'id':user.id, 'token': token.key, 'username': user.username, 'role': user.role,"recommendation":recommendation})
             return Response({'id':user.id, 'token': token.key, 'username': user.username, 'role': user.role})
         else:
             return Response({'message': 'Invalid username or password'}, status=status.HTTP_401_UNAUTHORIZED)

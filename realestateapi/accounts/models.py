@@ -15,3 +15,6 @@ class User(AbstractUser):
 
     class Meta:
         db_table = 'accounts'
+    
+    def __str__(self):
+        return str(self.pk)
