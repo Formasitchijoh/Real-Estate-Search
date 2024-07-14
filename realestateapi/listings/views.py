@@ -8,6 +8,12 @@ from .utils import similarity_check,Images
 from accounts.permissions import IsClient, IsAgent
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
+from recommendations.models import Recommendation
+
+from django_elasticsearch_dsl_drf.filter_backends import (
+    FilteringFilterBackend,
+)
+from django_elasticsearch_dsl_drf.viewsets import BaseDocumentViewSet
 from rest_framework import status
 # Create your views here.
 
@@ -100,9 +106,8 @@ from django_elasticsearch_dsl.search import Search
 from elasticsearch_dsl import Search, Q
 
 class ListingsSearch(APIView):
-    serializer_class = ListingSerializer
+    serializer_class = ListingWithImagesSerializer
     document_class = ListingDocument
-    serializer_class = ListingSerializer
 
     def get(self, request):
         # Get the search parameters from the request
@@ -136,6 +141,7 @@ class ListingsSearch(APIView):
         serializer = self.serializer_class(response.hits, many=True)
 
         return Response(serializer.data)
+
 
 from django_elasticsearch_dsl_drf.constants import (
     LOOKUP_FILTER_RANGE,
@@ -175,3 +181,136 @@ class ListingDocumentViewSet(DocumentViewSet):
         "town_suggest": {"field": "town.suggest", "suggesters": [SUGGESTER_COMPLETION]},
         #"price_suggest": {"field": "price.suggest", "suggesters": [SUGGESTER_COMPLETION]},
     }
+
+
+#########################'class ListingsListView(ViewSet):
+class ListViews(viewsets.ViewSet):
+    def list(self, request):
+        s = Search(index='listings')
+        response = s.execute()
+
+        listing_ids = [hit.id for hit in response.hits]
+        image_qs = Image.objects.filter(listing_id__in=listing_ids)
+        image_dict = {}
+        for image in image_qs:
+            if image.listing_id in image_dict:
+                image_dict[image.listing_id].append(image)
+            else:
+                image_dict[image.listing_id] = [image]
+
+        serializer_data = []
+        for hit in response.hits:
+            listing_data = hit.to_dict()
+            listing_data['listing_image'] = image_dict.get(hit.id, [])
+            serializer_data.append(listing_data)
+
+        serializer = ListingWithImagesSerializer(serializer_data, many=True)
+        return Response(serializer.data)
+
+class ContentBasedRecommendationListView(APIView):
+    def get(self, request):
+        # Get the search parameters from the request
+        user_id = self.request.query_params.get('user_id', '')
+        if user_id:
+            users_recommendation = Recommendation.objects.filter(user=user_id).order_by("-created_at").first()
+            #print('\n\n users interest', users_recommendation)
+
+            if users_recommendation:
+                listing_id = users_recommendation.interest_id
+                #print('\n\n users interest', listing_id)
+                listing = Listing.objects.get(id=listing_id)
+                #print('\n\n users interest', listing.bathrooms)
+                query = users_recommendation.last_search
+                bedroom = listing.bedroom
+                bathrooms = listing.bathrooms
+                min_price = 0.0
+                max_price = listing.price
+                listing_type = listing.listing_type
+                location = users_recommendation.location
+                print('\n\n users interest', query,'\n',bedroom, '\n',bathrooms,'\n',min_price, '\n', max_price, '\n', listing_type,location)
+
+
+                # Create a Search object
+                s = Search(index=ListingDocument._index._name)
+
+                # Add the match query for the title
+                s = s.query("match", town={"query": users_recommendation.location, "fuzziness": "auto"})
+                print('s\n\n',s.execute())
+
+                # Add the filter clauses
+                if bedroom:
+                   s = s.filter("term", bedroom=bedroom)
+                if bathrooms:
+                   s = s.filter("term", bathrooms=bathrooms)
+                if min_price and max_price:
+                  s = s.filter("range", price={"gte": min_price, "lte": max_price})
+
+                # Execute the search and get the results
+                response = s.execute()
+
+                listing_ids = [hit.id for hit in response.hits]
+                image_qs = Image.objects.filter(listing_id__in=listing_ids)
+                image_dict = {}
+                for image in image_qs:
+                    if image.listing_id in image_dict:
+                        image_dict[image.listing_id].append(image)
+                    else:
+                        image_dict[image.listing_id] = [image]
+
+                serializer_data = []
+                for hit in response.hits:
+                    listing_data = hit.to_dict()
+                    listing_data['listing_image'] = image_dict.get(hit.id, [])
+                    serializer_data.append(listing_data)
+
+                serializer = ListingWithImagesSerializer(serializer_data, many=True)
+                return Response(serializer.data)
+    
+
+class ContentBasedRecommendationListViewssss(APIView):
+    def get(self, request):
+        # Get the search parameters from the request
+        #user_id = self.request.query_params.get('user_id', '')
+        query = request.query_params.get('query', None)
+        bedroom = request.query_params.get('bedroom', None)
+        bathrooms = request.query_params.get('bathrooms', None)
+        min_price = request.query_params.get('min_price', None)
+        max_price = request.query_params.get('max_price', None)
+        listing_type = request.query_params.get('listing_type', None)
+
+        # Create a Search object
+        s = Search(index=ListingDocument._index._name)
+
+        # Add the match query for the title
+        s = s.query("match", title={"query": query, "fuzziness": "auto"})
+
+        # Add the filter clauses
+        if bedroom:
+            s = s.filter("term", bedroom=bedroom)
+        if bathrooms:
+            s = s.filter("term", bathrooms=bathrooms)
+        if min_price and max_price:
+            s = s.filter("range", price={"gte": min_price, "lte": max_price})
+        if listing_type:
+            s = s.filter("term", listing_type=listing_type)
+
+        # Execute the search and get the results
+        response = s.execute()
+
+        listing_ids = [hit.id for hit in response.hits]
+        image_qs = Image.objects.filter(listing_id__in=listing_ids)
+        image_dict = {}
+        for image in image_qs:
+            if image.listing_id in image_dict:
+                image_dict[image.listing_id].append(image)
+            else:
+                image_dict[image.listing_id] = [image]
+
+        serializer_data = []
+        for hit in response.hits:
+            listing_data = hit.to_dict()
+            listing_data['listing_image'] = image_dict.get(hit.id, [])
+            serializer_data.append(listing_data)
+
+        serializer = ListingWithImagesSerializer(serializer_data, many=True)
+        return Response(serializer.data)

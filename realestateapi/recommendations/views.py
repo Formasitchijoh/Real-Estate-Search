@@ -30,12 +30,14 @@ class UserRecommendationListView(viewsets.ViewSet):
         print('user id for recommendation', user_id)
         if user_id:
             users_recommendation = Recommendation.objects.filter(user=user_id).order_by("-created_at").first()
-            print( 'the recommedation string',str(users_recommendation).replace(',', ''))
-            top_listings, top_scores = similarity_check(str(users_recommendation).replace(',', ''))  
-            search_results = {
-            "Listings":top_listings,
-            "Scores":top_scores
-            }        
-            return Response(search_results, status=status.HTTP_200_OK)
+            print('the recommendation object:', users_recommendation.last_search)
+            if users_recommendation:
+                print('the recommendation string:', str(users_recommendation))
+                top_listings, top_scores = similarity_check(str(users_recommendation).replace(',', ''))
+                search_results = {
+                    "Listings": top_listings,
+                    "Scores": top_scores
+                }
+                return Response(search_results, status=status.HTTP_200_OK)
         return Response([])
     

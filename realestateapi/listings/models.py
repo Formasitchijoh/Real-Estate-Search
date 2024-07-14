@@ -20,7 +20,7 @@ class Listing(models.Model):
     class Meta:
         db_table = 'listings'
     def __str__(self):
-        return self.title
+        return str(self.pk)
     
 
 

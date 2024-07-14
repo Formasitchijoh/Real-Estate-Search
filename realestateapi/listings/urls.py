@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ListingsListView,ProcessedListingView,SearchView, ImageView, FullSearchListingView, ListingsSearch, ListingDocumentViewSet
+from .views import ListingsListView,ProcessedListingView,SearchView, ImageView, FullSearchListingView, ListingsSearch, ListingDocumentViewSet,ContentBasedRecommendationListView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -14,5 +14,6 @@ router.register(r'listing_document', ListingDocumentViewSet, basename="listing_d
 urlpatterns =[
     path('', include(router.urls)),
     path("listing_search/", ListingsSearch.as_view()),
+    path("content/", ContentBasedRecommendationListView.as_view()),
 ]
 

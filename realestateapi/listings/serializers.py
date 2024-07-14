@@ -26,4 +26,3 @@ class ProcessedListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProcessedListings
         fields = ('id', 'title','listing','link', 'listing_type', 'bedroom', 'bathrooms', 'location', 'town', 'price', 'pricepermonth', 'views', 'reactions')
-
