@@ -42,6 +42,7 @@ class UserLoginView(ObtainAuthToken):
                     'id': user.id,
                     'token': token.key,
                     'username': user.username,
+                    "email":user.email,
                     'role': user.role,
                     'recommendation': recommendation
                 })
@@ -49,6 +50,7 @@ class UserLoginView(ObtainAuthToken):
             return Response({
                 'id': user.id,
                 'token': token.key,
+                "email":user.email,
                 'username': user.username,
                 'role': user.role
             })
