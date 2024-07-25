@@ -10,6 +10,8 @@ from accounts.permissions import IsClient, IsAgent
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from recommendations.models import Recommendation
+from rest_framework.decorators import api_view
+
 from .views import Images
 from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
@@ -175,19 +177,79 @@ class ListingDocumentViewSet(DocumentViewSet):
         CompoundSearchFilterBackend
     )
 
-    search_fields = ("title",)
+    search_fields = ("listing_type","title","town","location")
 
     filter_fields = {
         "id": {"field": "id", "lookups": [LOOKUP_QUERY_IN]},
         "price": {"field": "price", "lookups": [LOOKUP_QUERY_GTE, LOOKUP_FILTER_RANGE]},
     }
 
+
     suggester_fields = {
+        "listing_type_suggest": {"field": "listing_type.suggest", "suggesters": [SUGGESTER_COMPLETION]},
+        "title_suggest": {"field": "title.suggest", "suggesters": [SUGGESTER_COMPLETION]},
         "town_suggest": {"field": "town.suggest", "suggesters": [SUGGESTER_COMPLETION]},
-        #"price_suggest": {"field": "price.suggest", "suggesters": [SUGGESTER_COMPLETION]},
+        "location_suggest": {"field": "location.suggest", "suggesters": [SUGGESTER_COMPLETION]},
     }
 
+@api_view(['GET'])
+def get_suggestions(request):
+    query = request.GET.get('q', '')
+    if not query:
+        return Response([])
 
+    search = ListingDocument.search()
+
+    search = search.suggest(
+        'title_suggestions',
+        query,
+        completion={
+            "field": "title.suggest",
+            "fuzzy": {
+                "fuzziness": 2
+            },
+            "size": 5
+        }
+    ).suggest(
+        'listing_type_suggestions',
+        query,
+        completion={
+            "field": "listing_type.suggest",
+            "fuzzy": {
+                "fuzziness": 2
+            },
+            "size": 5
+        }
+    ).suggest(
+        'town_suggestions',
+        query,
+        completion={
+            "field": "town.suggest",
+            "fuzzy": {
+                "fuzziness": 2
+            },
+            "size": 5
+        }
+    ).suggest(
+        'location_suggestions',
+        query,
+        completion={
+            "field": "location.suggest",
+            "fuzzy": {
+                "fuzziness": 2
+            },
+            "size": 5
+        }
+    )
+
+    response = search.execute()
+
+    suggestions = set()
+    for suggest in ['title_suggestions', 'listing_type_suggestions', 'town_suggestions', 'location_suggestions']:
+        for option in response.suggest[suggest][0].options:
+            suggestions.add(option.text)
+
+    return Response(list(suggestions))
 #########################'class ListingsListView(ViewSet):
 class ListViews(viewsets.ViewSet):
     def list(self, request):

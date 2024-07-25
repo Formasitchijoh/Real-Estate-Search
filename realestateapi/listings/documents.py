@@ -23,7 +23,10 @@ class ImageDocument(Document):
 
 @listing_index.doc_type
 class ListingDocument(Document):
+    listing_type = fields.TextField(attr="listing_type", fields={"suggest": fields.Completion()})
     town = fields.TextField(attr="town", fields={"suggest": fields.Completion()})
+    title = fields.TextField(attr="title", fields={"suggest": fields.Completion()})
+    location = fields.TextField(attr="location", fields={"suggest": fields.Completion()})
     listing_images = fields.NestedField(properties={
         'id': fields.IntegerField(),
         'image': fields.TextField(),
@@ -33,7 +36,7 @@ class ListingDocument(Document):
 
     class Django:
         model = Listing
-        fields = ['id', 'title', 'link', 'listing_type','price', 'bedroom', 'bathrooms', 'location', 'pricepermonth', 'views', 'reactions']
+        fields = ['id','link','price', 'bedroom', 'bathrooms', 'pricepermonth', 'views', 'reactions']
         related_models = [Image]
 
     def get_queryset(self):

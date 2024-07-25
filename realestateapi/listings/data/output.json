@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "title": "1 bedroom for rent  |  Bonduma, Buea, Cameroon",
+        "title": "Studio for rent | Bonduma, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Bonduma/Buea/studio-to-let-3309?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -23,7 +23,7 @@
     },
     {
         "id": 2,
-        "title": "3 bedroom bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
+        "title": "3 bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Sandpit/Buea/apartment-to-let-3308?locale=fr",
         "listing_type": "Apartment",
         "bedroom": 3.0,
@@ -43,9 +43,9 @@
     },
     {
         "id": 3,
-        "title": "1 bedroom toguest house to let   |  Mile 17, Buea, Cameroon",
+        "title": "Welcome toguest house to let  | Mile 17, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/guest%20house/Mile%2017/Buea/guest-house-to-let-1701?locale=en",
-        "listing_type": "Guest house",
+        "listing_type": "Guest House",
         "bedroom": 1.0,
         "bathrooms": 1.0,
         "location": "Mile 17",
@@ -55,19 +55,17 @@
         "views": 25,
         "reactions": 20,
         "matched_queries": [
-            "houses in  Buea",
             "1 bedroom house in Mile 17 Buea",
             "cheap house in  Buea",
-            "guest house in  Buea Mile 17",
             "affordable houses in  Buea Mile 17",
             "student rooms in Mile 17  Buea"
         ]
     },
     {
         "id": 4,
-        "title": "1 bedroom tomega guest house  |  Mokundange, Limbe, Cameroon",
+        "title": "Welcome tomega guest house | Mokundange, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/guest%20house/Mokundange/Limbe/mega-guest-house-384?locale=en",
-        "listing_type": "Guest house",
+        "listing_type": "Guest House",
         "bedroom": 1.0,
         "bathrooms": 1.0,
         "location": "Mokundange",
@@ -77,14 +75,12 @@
         "views": 0,
         "reactions": 17,
         "matched_queries": [
-            "houses in  Limbe",
-            "1 bedroom house in Mokundange Limbe",
-            "guest house in  Limbe Mokundange"
+            "1 bedroom house in Mokundange Limbe"
         ]
     },
     {
         "id": 5,
-        "title": "1 bedroom room for rent  |  Mime, Akom, Cameroon",
+        "title": "Single room for rent | Mime, Akom, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Mime/Akom/single-room-to-let-4002?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -101,9 +97,9 @@
     },
     {
         "id": 6,
-        "title": "1 bedroom for sale  |  Mile three , Bamenda, Cameroon",
+        "title": "Duplex for sale | Mile three , Bamenda, Cameroon",
         "link": "https://digitalrenter.com/en/duplex/Mile%20three%20/Bamenda/duplex-for-sale-3994?locale=en",
-        "listing_type": "Guest house",
+        "listing_type": "Guest House",
         "bedroom": 1.0,
         "bathrooms": 1.0,
         "location": "Mile three ",
@@ -113,16 +109,14 @@
         "views": 150,
         "reactions": 1,
         "matched_queries": [
-            "houses in  Bamenda",
-            "1 bedroom house in Mile three  Bamenda",
-            "guest house in  Bamenda Mile three "
+            "1 bedroom house in Mile three  Bamenda"
         ]
     },
     {
         "id": 7,
-        "title": "1 bedroom toguest house to let   |  Mile 2 GHS, Limbe, Cameroon",
+        "title": "Welcome toguest house to let  | Mile 2 GHS, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/guest%20house/Mile%202%20GHS/Limbe/guest-house-to-let-3987?locale=en",
-        "listing_type": "Guest house",
+        "listing_type": "Guest House",
         "bedroom": 1.0,
         "bathrooms": 1.0,
         "location": "Mile 2 GHS",
@@ -132,14 +126,12 @@
         "views": 60,
         "reactions": 11,
         "matched_queries": [
-            "houses in  Limbe",
-            "1 bedroom house in Mile 2 GHS Limbe",
-            "guest house in  Limbe Mile 2 GHS"
+            "1 bedroom house in Mile 2 GHS Limbe"
         ]
     },
     {
         "id": 8,
-        "title": "1 bedroom for rent  |  After GHS Limbe , Limbe, Cameroon",
+        "title": "Studio for rent | After GHS Limbe , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/studio/After%20GHS%20Limbe%20/Limbe/studio-to-let-3979?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -158,7 +150,7 @@
     },
     {
         "id": 9,
-        "title": "2 bedroom bedrooms apartment for rent  |  Kie layout , Limbe, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Kie layout , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Kie%20layout%20/Limbe/apartment-to-let-3978?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -178,7 +170,7 @@
     },
     {
         "id": 10,
-        "title": "1 bedroom for rent  |  After GHS Limbe , Limbe, Cameroon",
+        "title": "Studio for rent | After GHS Limbe , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/studio/After%20GHS%20Limbe%20/Limbe/studio-to-let-3977?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -197,7 +189,7 @@
     },
     {
         "id": 11,
-        "title": "3 bedroom bedrooms apartment for rent  |  After GHS Limbe , Limbe, Cameroon",
+        "title": "3 bedrooms apartment for rent  |  After GHS Limbe , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/After%20GHS%20Limbe%20/Limbe/apartment-to-let-3976?locale=en",
         "listing_type": "Apartment",
         "bedroom": 3.0,
@@ -217,7 +209,7 @@
     },
     {
         "id": 12,
-        "title": "1 bedroom room for rent  |  After GHS Limbe , Limbe, Cameroon",
+        "title": "Single room for rent | After GHS Limbe , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/After%20GHS%20Limbe%20/Limbe/single-room-to-let-3975?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -237,7 +229,7 @@
     },
     {
         "id": 13,
-        "title": "1 bedroom room for rent  |  Mile 4, Limbe, Cameroon",
+        "title": "Single room for rent | Mile 4, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Mile%204/Limbe/single-room-to-let-3974?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -257,7 +249,7 @@
     },
     {
         "id": 14,
-        "title": "1 bedroom room for rent  |  Green city, Limbe, Cameroon",
+        "title": "Single room for rent | Green city, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Green%20city/Limbe/single-room-to-let-3973?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -277,7 +269,7 @@
     },
     {
         "id": 15,
-        "title": "1 bedroom for rent  |  Mile 3, Limbe, Cameroon",
+        "title": "Studio for rent | Mile 3, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Mile%203/Limbe/studio-to-let-3972?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -296,7 +288,7 @@
     },
     {
         "id": 16,
-        "title": "1 bedroom room for rent  |  Karata, Limbe, Cameroon",
+        "title": "Single room for rent | Karata, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Karata/Limbe/single-room-to-let-3971?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -316,7 +308,7 @@
     },
     {
         "id": 17,
-        "title": "2 bedroom bedrooms apartment for rent  |  Kie layout , Limbe, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Kie layout , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Kie%20layout%20/Limbe/apartment-to-let-3970?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -336,7 +328,7 @@
     },
     {
         "id": 18,
-        "title": "1 bedroom for rent  |  Busumbu,mile 2 , Limbe, Cameroon",
+        "title": "Studio for rent | Busumbu,mile 2 , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Busumbu,mile%202%20/Limbe/studio-to-let-3969?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -355,7 +347,7 @@
     },
     {
         "id": 19,
-        "title": "1 bedroom room for rent  |  Green city, Limbe, Cameroon",
+        "title": "Single room for rent | Green city, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Green%20city/Limbe/single-room-to-let-3964?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -375,9 +367,9 @@
     },
     {
         "id": 20,
-        "title": "1 bedroom toguest house for sale   |  Efoulan , Yaounde, Cameroon",
+        "title": "Welcome toguest house for sale  | Efoulan , Yaounde, Cameroon",
         "link": "https://digitalrenter.com/en/guest%20house/Efoulan%20/Yaounde/guest-house-for-sale-3962?locale=en",
-        "listing_type": "Guest house",
+        "listing_type": "Guest House",
         "bedroom": 1.0,
         "bathrooms": 1.0,
         "location": "Efoulan ",
@@ -387,14 +379,12 @@
         "views": 80,
         "reactions": 10,
         "matched_queries": [
-            "houses in  Yaounde",
-            "1 bedroom house in Efoulan  Yaounde",
-            "guest house in  Yaounde Efoulan "
+            "1 bedroom house in Efoulan  Yaounde"
         ]
     },
     {
         "id": 21,
-        "title": "1 bedroom for rent  |  Mile 3, Limbe, Cameroon",
+        "title": "Studio for rent | Mile 3, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Mile%203/Limbe/studio-to-let-3960?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -413,7 +403,7 @@
     },
     {
         "id": 22,
-        "title": "1 bedroom room for rent  |  Ngeme, Limbe, Cameroon",
+        "title": "Single room for rent | Ngeme, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Ngeme/Limbe/single-room-to-let-3959?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -433,7 +423,7 @@
     },
     {
         "id": 23,
-        "title": "3 bedroom bedrooms apartment for rent  |  Odza, Yaounde, Cameroon",
+        "title": "3 bedrooms apartment for rent  |  Odza, Yaounde, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Odza/Yaounde/apartment-to-let-3955?locale=en",
         "listing_type": "Apartment",
         "bedroom": 3.0,
@@ -453,7 +443,7 @@
     },
     {
         "id": 24,
-        "title": "1 bedroom for rent  |  Mile 3, Limbe, Cameroon",
+        "title": "Studio for rent | Mile 3, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Mile%203/Limbe/studio-to-let-3952?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -472,7 +462,7 @@
     },
     {
         "id": 25,
-        "title": "1 bedroom room for rent  |  Great soppo, Buea, Cameroon",
+        "title": "Single room for rent | Great soppo, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Great%20soppo/Buea/single-room-to-let-3951?locale=fr",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -492,7 +482,7 @@
     },
     {
         "id": 26,
-        "title": "1 bedroom room for rent  |  Mile 2, Limbe, Cameroon",
+        "title": "Single room for rent | Mile 2, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Mile%202/Limbe/single-room-to-let-3944?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -512,7 +502,7 @@
     },
     {
         "id": 27,
-        "title": "2 bedroom bedrooms apartment for rent  |  Mile 2,St David's Entrance , Limbe, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Mile 2,St David's Entrance , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Mile%202,St%20David%27s%20Entrance%20/Limbe/apartment-to-let-3942?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -532,7 +522,7 @@
     },
     {
         "id": 28,
-        "title": "1 bedroom for rent  |  Beside GHS Limbe, Limbe, Cameroon",
+        "title": "Studio for rent | Beside GHS Limbe, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Beside%20GHS%20Limbe/Limbe/studio-to-let-3941?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -551,7 +541,7 @@
     },
     {
         "id": 29,
-        "title": "1 bedroom room for rent  |  Mile 2 GHS, Limbe, Cameroon",
+        "title": "Single room for rent | Mile 2 GHS, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Mile%202%20GHS/Limbe/single-room-to-let-3940?locale=fr",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -571,7 +561,7 @@
     },
     {
         "id": 30,
-        "title": "1 bedroom room for rent  |  Mile 2 GHS, Limbe, Cameroon",
+        "title": "Single room for rent | Mile 2 GHS, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Mile%202%20GHS/Limbe/single-room-to-let-3936?locale=fr",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -591,7 +581,7 @@
     },
     {
         "id": 31,
-        "title": "2 bedroom bedrooms apartment for rent  |  After Savoy Palms, towards red cross Junction, Limbe, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  After Savoy Palms, towards red cross Junction, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/After%20Savoy%20Palms,%20towards%20red%20cross%20Junction/Limbe/apartment-to-let-3934?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -611,7 +601,7 @@
     },
     {
         "id": 32,
-        "title": "2 bedroom bedrooms apartment for rent  |  Opposite GHS LIMBE, Limbe, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Opposite GHS LIMBE, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Opposite%20GHS%20LIMBE/Limbe/apartment-to-let-3933?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -631,7 +621,7 @@
     },
     {
         "id": 33,
-        "title": "1 bedroom for rent  |  Opposite GHS LIMBE, Limbe, Cameroon",
+        "title": "Apartment for rent | Opposite GHS LIMBE, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Opposite%20GHS%20LIMBE/Limbe/apartment-to-let-3932?locale=en",
         "listing_type": "Apartment",
         "bedroom": 1.0,
@@ -651,7 +641,7 @@
     },
     {
         "id": 34,
-        "title": "2 bedroom bedrooms apartment for rent  |  Sokolo, Limbe, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Sokolo, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Sokolo/Limbe/apartment-to-let-3931?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -671,7 +661,7 @@
     },
     {
         "id": 35,
-        "title": "3 bedroom bedrooms apartment for rent  |  Opposite GHS LIMBE, Limbe, Cameroon",
+        "title": "3 bedrooms apartment for rent  |  Opposite GHS LIMBE, Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Opposite%20GHS%20LIMBE/Limbe/apartment-to-let-3930?locale=en",
         "listing_type": "Apartment",
         "bedroom": 3.0,
@@ -691,9 +681,9 @@
     },
     {
         "id": 36,
-        "title": "4 bedroom bedrooms duplex for sale  |  Bonamousadi, Douala, Cameroon",
+        "title": "4 bedrooms duplex for sale  |  Bonamousadi, Douala, Cameroon",
         "link": "https://digitalrenter.com/en/duplex/Bonamousadi/Douala/duplex-for-sale-3929?locale=en",
-        "listing_type": "Guest house",
+        "listing_type": "Guest House",
         "bedroom": 4.0,
         "bathrooms": 3.0,
         "location": "Bonamousadi",
@@ -703,14 +693,12 @@
         "views": 65,
         "reactions": 12,
         "matched_queries": [
-            "houses in  Douala",
-            "4 bedroom house in Bonamousadi Douala",
-            "guest house in  Douala Bonamousadi"
+            "4 bedroom house in Bonamousadi Douala"
         ]
     },
     {
         "id": 37,
-        "title": "1 bedroom room for rent  |  Mayor street , Buea, Cameroon",
+        "title": "Single room for rent | Mayor street , Buea, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Mayor%20street%20/Buea/single-room-to-let-3928?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -730,9 +718,9 @@
     },
     {
         "id": 38,
-        "title": "4 bedroom bedrooms duplex for sale  |  Baoba - Bonamousadi, Douala, Cameroon",
+        "title": "4 bedrooms duplex for sale  |  Baoba - Bonamousadi, Douala, Cameroon",
         "link": "https://digitalrenter.com/en/duplex/Baoba%20-%20Bonamousadi/Douala/duplex-for-sale-3926?locale=en",
-        "listing_type": "Guest house",
+        "listing_type": "Guest House",
         "bedroom": 4.0,
         "bathrooms": 5.0,
         "location": "Baoba - Bonamousadi",
@@ -742,14 +730,12 @@
         "views": 70,
         "reactions": 0,
         "matched_queries": [
-            "houses in  Douala",
-            "4 bedroom house in Baoba - Bonamousadi Douala",
-            "guest house in  Douala Baoba - Bonamousadi"
+            "4 bedroom house in Baoba - Bonamousadi Douala"
         ]
     },
     {
         "id": 39,
-        "title": "1 bedroom room for rent  |  Mayor street , Buea, Cameroon",
+        "title": "Single room for rent | Mayor street , Buea, Cameroon",
         "link": "https://digitalrenter.com/en/single%20room/Mayor%20street%20/Buea/single-room-to-let-3924?locale=en",
         "listing_type": "Single Room",
         "bedroom": 1.0,
@@ -769,7 +755,7 @@
     },
     {
         "id": 40,
-        "title": "1 bedroom bedroom studio for rent  |  Sandpit, Buea, Cameroon",
+        "title": "0 bedroom studio for rent | Sandpit, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Sandpit/Buea/studio-to-let-3918?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -791,7 +777,7 @@
     },
     {
         "id": 41,
-        "title": "2 bedroom bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Sandpit/Buea/apartment-to-let-3916?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -811,7 +797,7 @@
     },
     {
         "id": 42,
-        "title": "1 bedroom bedroom studio for rent  |  Bonduma, Buea, Cameroon",
+        "title": "0 bedroom studio for rent | Bonduma, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Bonduma/Buea/studio-to-let-3914?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -833,7 +819,7 @@
     },
     {
         "id": 43,
-        "title": "1 bedroom bedroom studio for rent  |  Longstreet, Buea, Cameroon",
+        "title": "0 bedroom studio for rent | Longstreet, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/studio/Longstreet/Buea/studio-to-let-3913?locale=en",
         "listing_type": "Studio",
         "bedroom": 1.0,
@@ -852,7 +838,7 @@
     },
     {
         "id": 44,
-        "title": "2 bedroom bedrooms apartment for rent  |  Behind GHS , Limbe, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Behind GHS , Limbe, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Behind%20GHS%20/Limbe/apartment-to-let-3911?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -872,9 +858,9 @@
     },
     {
         "id": 45,
-        "title": "1 bedroom bedroom store for rent  |  Bakweri Town, Buea, Cameroon",
+        "title": "0 bedroom store for rent | Bakweri Town, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/store/Bakweri%20Town/Buea/store-to-let-3908?locale=en",
-        "listing_type": "Store",
+        "listing_type": "Guest House",
         "bedroom": 1.0,
         "bathrooms": 0.0,
         "location": "Bakweri Town",
@@ -889,7 +875,7 @@
     },
     {
         "id": 46,
-        "title": "1 bedroom for rent  |  Sandpit, Buea, Cameroon",
+        "title": "Apartment for rent | Sandpit, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Sandpit/Buea/apartment-to-let-3907?locale=en",
         "listing_type": "Apartment",
         "bedroom": 1.0,
@@ -909,7 +895,7 @@
     },
     {
         "id": 47,
-        "title": "2 bedroom bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
+        "title": "2 bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Sandpit/Buea/apartment-to-let-3906?locale=en",
         "listing_type": "Apartment",
         "bedroom": 2.0,
@@ -929,7 +915,7 @@
     },
     {
         "id": 48,
-        "title": "3 bedroom bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
+        "title": "3 bedrooms apartment for rent  |  Sandpit, Buea, Cameroon",
         "link": "https://digitalrenter.com/en/apartment/Sandpit/Buea/apartment-to-let-3905?locale=en",
         "listing_type": "Apartment",
         "bedroom": 3.0,

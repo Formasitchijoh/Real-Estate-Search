@@ -121,7 +121,22 @@ def clean_data():
     data.loc[data['listing_type'] == 'Studio', 'bathrooms'] = 1.0
 
     # Update the title
-    data['title'] = data.apply(lambda row: f"{str(int(row['bedroom']))} bedroom{' ' + ' '.join(row['title'].split('|')[0].split(' ')[1:]) if row['title'].split('|')[0].split(' ')[1:] else ''} | {row['title'].split('|')[1]}" if '|' in row['title'] else row['title'], axis=1)
+    # Update the title only if the number of bedrooms is not 1
+    # Define a function to update the title based on the bedroom number
+    def update_title(row):
+        if row['bedroom'] == 1:
+            return row['title']
+        if '|' in row['title']:
+            parts = row['title'].split('|')
+            bedroom_part = str(int(row['bedroom']))
+            title_part = ' '.join(parts[0].split(' ')[1:]) if len(parts[0].split(' ')) > 1 else ''
+            return f"{bedroom_part} {title_part} | {parts[1]}"
+        return row['title']
+
+    # Apply the function to the DataFrame
+    data['title'] = data.apply(update_title, axis=1)
+
+
     data['views'] = data['views'].fillna(0).astype('int64')
 
     def replace_matches_in_column(df, column, string_to_match, min_ratio = 47):
@@ -558,78 +573,3 @@ def Images(listing_id,*args, **kwagrs):
         listing_images = [image.image for image in images]
         print('listing', listing_images)
         return listing_images
-
-
-def similarity_checkas(*args, **kwargs):
-
-    def find_best_matches(query, dataset, top_n=5):
-        # Increase the field size limit
-        csv.field_size_limit(1000000000)
-
-        # Read the dataset from the CSV
-        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/processed_data.csv')
-
-        dataset = []
-        with open(file_path, 'r') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                dataset.append(row)
-
-        # Create a CountVectorizer to convert the queries to vectors
-        vectorizer = CountVectorizer()
-
-        # Extract the unique queries and their associated listings
-        queries = set()
-        query_to_listings = {}
-        for row in dataset:
-            q = row['query']
-            queries.add(q)
-            if q not in query_to_listings:
-                query_to_listings[q] = []
-            query_to_listings[q].append(row)
-
-        # Fit and transform the unique queries to vectors
-        query_vectors = vectorizer.fit_transform(list(queries))
-
-        # Calculate the cosine similarity between the input query and all the queries
-        input_query_vector = vectorizer.transform([query])
-        scores = cosine_similarity(input_query_vector, query_vectors)[0]
-
-        # Find the indices of the top-N queries with the highest similarity scores
-        top_indices = scores.argsort()[-top_n:][::-1]
-        top_queries = [list(queries)[i] for i in top_indices]
-
-        # Get the top-N matching listings and their corresponding scores
-        top_listings = []
-        top_scores = []
-        for q in top_queries:
-            for listing in query_to_listings[q]:
-                listing_id = listing['listing']
-                print(listing['query'], listing_id)
-                images = Image.objects.filter(listing_id=listing_id)
-                listing_with_images = listing.copy()
-                listing_with_images['images'] = [image.image for image in images]
-                top_listings.append(listing_with_images)
-                top_scores.append(scores[list(queries).index(q)])
-
-        return top_listings, top_scores
-
-    # Increase the field size limit
-    csv.field_size_limit(1000000000)
-
-    # Read the dataset from the CSV 
-    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/processed_data.csv')
-
-    dataset = []
-    with open(file_path, 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            dataset.append(row)
-
-    # Example usage
-    search_query = 'house in douala'
-    top_listings, top_scores = find_best_matches(search_query, dataset, top_n=3)
-    result_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/search_result.json')
-    # Save the top matches to a JSON file
-    with open(result_file_path, "w") as f:
-        json.dump({"Listings": top_listings, "Scores": top_scores}, f, indent=4)
