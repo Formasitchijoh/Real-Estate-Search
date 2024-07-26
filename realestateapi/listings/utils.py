@@ -157,7 +157,6 @@ def clean_data():
         df.loc[rows_with_matches, column] = string_to_match
         
         # let us know the function's done
-        print("All done!")
 
     replace_matches_in_column(df=data, column='listing_type', string_to_match="Guest House")
 
@@ -173,7 +172,6 @@ def clean_data():
         'reactions': 'int64',
         'views': 'int64'
     })
-    print('here')
     data.to_csv(output_file_path, index=False)
     file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data/cleaned_data.csv')
     if file_path:

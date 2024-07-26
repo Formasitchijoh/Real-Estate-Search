@@ -38,6 +38,7 @@ class UserLoginView(ObtainAuthToken):
             user_recommendations = Recommendation.objects.filter(user=user.pk).first()
             if user_recommendations:
                 recommendation = RecommendationSerializer(user_recommendations).data
+                print('\n\n hellllle\n\n',recommendation)
                 return Response({
                     'id': user.id,
                     'token': token.key,
@@ -47,7 +48,8 @@ class UserLoginView(ObtainAuthToken):
                     'recommendation': recommendation
                 })
             
-            return Response({
+            else:
+                return Response({
                 'id': user.id,
                 'token': token.key,
                 "email":user.email,
