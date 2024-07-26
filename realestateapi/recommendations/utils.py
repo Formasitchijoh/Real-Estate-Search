@@ -48,6 +48,7 @@ def calculate_user_similarity(user_a_id):
 def generate_recommendations(user_a_id, top_n=5):
     print("\n\nvalue\n\n", user_a_id)
     similar_users = calculate_user_similarity(user_a_id)
+    print('\n\n\n\nsimilar users \n\n', similar_users)
     
     # Get the top-N similar users
     top_similar_users = similar_users[:top_n]
