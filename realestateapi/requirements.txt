@@ -14,4 +14,4 @@ django-cors-headers==4.3.1
 djangorestframework==3.15.0
 
 # MySQL Client - Used as an interface to connect Django application to the MySQL server.
-#mysqlclient==2.0.1
+# mysqlclient==2.0.1
